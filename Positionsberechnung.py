@@ -14,7 +14,7 @@
 # 1.4       19.09.2018  M7ma    added GPS
 # 1.5       20.09.2018  M7ma    added orbit visualization, menu redesign
 #
-# Copyright © Michae$l Siebenmann, Matzingen, Switzerland. All rights reserved
+# Copyright © Michael Siebenmann, Matzingen, Switzerland. All rights reserved
 # -----------------------------------------------------------------------------
 
 # -----------------------------------------------------------------------------
