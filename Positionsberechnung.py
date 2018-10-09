@@ -1,15 +1,4 @@
-# ----------------------------------------------------------------------------------
-# This script detects the position of the user and can output
-# the topocentric coordinates of a desired celestial object. 
-#
-# Author:   Michael Siebenmann
-# Date :    30.07.2018
-#
-# History:
-# Version   Date        Who     Changes
-# 1.0       30.07.2018  M7ma    created
-# 1.1       14.08.2018  M7ma    complete overhaul, better usability
-# 1.2       29.08.201# ----------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # This script detects the position of the user and can output
 # the topocentric coordinates of a desired celestial object. 
 #
@@ -26,7 +15,7 @@
 # 1.5       20.09.2018  M7ma    added orbit visualization, menu redesign
 #
 # Copyright © Michae$l Siebenmann, Matzingen, Switzerland. All rights reserved
-# ----------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
 # -----------------------------------------------------------------------------
 # Imports
