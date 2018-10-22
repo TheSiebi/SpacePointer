@@ -17,7 +17,7 @@
 # 1.5       20.09.2018  M7ma    added orbit visualization, menu redesign
 # 2.0       12.10.2018  M7ma    new user interface, added stars and galaxies
 #
-# Copyright © Michae$l Siebenmann, Matzingen, Switzerland. All rights reserved
+# Copyright © Michael Siebenmann, Matzingen, Switzerland. All rights reserved
 # -----------------------------------------------------------------------------
 
 # -----------------------------------------------------------------------------
@@ -390,7 +390,7 @@ def get_alt_az(p, y):
         "Sirius": (101.5, -16.74497),
         "Alpha Centauri A": (219.9, -60.83389),
         "Arcturus": (214.1333, 19.0835),
-        "Vega": (279.3958, 38080389),
+        "Vega": (279.3958, 38.080389),
         "Aldebaran": (69.2542, 16.54503),
         "Capella": (79.525, 46.01411),
         "Regulus": (152.3458, 11.87286),
