@@ -518,17 +518,23 @@ def get_alt_az(p, y):
     print("HA  = " + repr(HA) + "h")
 
     HA *= 15
+    HA = math.radians(HA)
+    
+    # Methode Formelbuch
+    az1  = math.degrees(math.atan(math.sin(HA)/(math.cos(HA)*math.sin(local_lat) - math.tan(Dec)*math.cos(local_lat))))
+    alt1 = math.degrees(math.asin(math.sin(local_lat)*math.sin(Dec) + math.cos(local_lat)*math.cos(Dec)*math.cos(HA)))
 
-    x = math.cos(math.radians(HA)) * math.cos(Dec)
-    y = math.sin(math.radians(HA)) * math.cos(Dec)
+    # Methode Stjarnhimlen
+    x = math.cos(HA) * math.cos(Dec)
+    y = math.sin(HA) * math.cos(Dec)
     z = math.sin(Dec)
 
     xa = x * math.sin(local_lat) - z * math.cos(local_lat)
     ya = y
     za = x * math.cos(local_lat) + z * math.sin(local_lat)
 
-    az  = math.degrees(math.atan2(ya, xa) + math.pi)
-    alt = math.degrees(math.atan2(za, math.sqrt(xa*xa + ya*ya)))
+    az2  = math.degrees(math.atan2(ya, xa) + math.pi)
+    alt2 = math.degrees(math.atan2(za, math.sqrt(xa*xa + ya*ya)))
     
     RA = math.degrees(RA)
     Dec = math.degrees(Dec)
@@ -539,9 +545,11 @@ def get_alt_az(p, y):
     print("RA  = " + repr(RA) + "°")
     print("Dec = " + repr(Dec) + "°")
     print("r   = " + repr(rg) + " (AU)")
-    print("Az  = " + repr(az) + "°")
-    print("Alt = " + repr(alt) + "°")
-    return alt, az, RA, Dec, rg, r
+    print("Az1  = " + repr(az1) + "°")
+    print("Alt1 = " + repr(alt1) + "°")
+    print("Az2  = " + repr(az2) + "°")
+    print("Alt2 = " + repr(alt2) + "°")
+    return alt2, az2, RA, Dec, rg, r
     
     
 
