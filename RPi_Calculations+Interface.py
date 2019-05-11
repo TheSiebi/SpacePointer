@@ -16,6 +16,7 @@
 # 1.4       19.09.2018  M7ma    added GPS
 # 1.5       20.09.2018  M7ma    added orbit visualization, menu redesign
 # 2.0       12.10.2018  M7ma    new user interface, added stars and galaxies
+# 2.1       11.05.2019  M7ma    more precision thanks to AstroPy
 #
 # Copyright © Michael Siebenmann, Matzingen, Switzerland. All rights reserved
 # -----------------------------------------------------------------------------
@@ -32,6 +33,11 @@ import serial
 import gpsd
 from pytz import timezone
 from time import sleep
+
+from astropy.coordinates import EarthLocation, SkyCoord
+from astropy.time import Time
+from astropy import units as u
+from astropy.coordinates import AltAz
 
 # -----------------------------------------------------------------------------
 # Setup
@@ -513,31 +519,11 @@ def get_alt_az(p, y):
 
     # Azimuthal coordinates
 
-    HA = (LST - math.degrees(RA)/15)%24 # Hour Angle
-
-    print("HA  = " + repr(HA) + "h")
-
-    HA *= 15
-    HA = math.radians(HA)
-    
-    # Methode Formelbuch
-    az1  = math.degrees(math.atan(math.sin(HA)/(math.cos(HA)*math.sin(local_lat) - math.tan(Dec)*math.cos(local_lat))))
-    alt1 = math.degrees(math.asin(math.sin(local_lat)*math.sin(Dec) + math.cos(local_lat)*math.cos(Dec)*math.cos(HA)))
-
-    # Methode Stjarnhimlen
-    x = math.cos(HA) * math.cos(Dec)
-    y = math.sin(HA) * math.cos(Dec)
-    z = math.sin(Dec)
-
-    xa = x * math.sin(local_lat) - z * math.cos(local_lat)
-    ya = y
-    za = x * math.cos(local_lat) + z * math.sin(local_lat)
-
-    az2  = math.degrees(math.atan2(ya, xa) + math.pi)
-    alt2 = math.degrees(math.atan2(za, math.sqrt(xa*xa + ya*ya)))
-    
-    RA = math.degrees(RA)
-    Dec = math.degrees(Dec)
+    observing_location = EarthLocation(lat=math.degrees(local_lat), lon=local_lon, height=417*u.m)  
+    observing_time = Time(datetime.datetime.utcnow(), scale='utc')
+    aa = AltAz(location=observing_location, obstime=observing_time)
+    RA_DEC = SkyCoord(RA, Dec, unit="rad")
+    RA_DEC = RA_DEC.transform_to(aa)
     
     if (p == "Sonne"):
         rg = r
