@@ -449,20 +449,18 @@ def get_alt_az(p, y):
         
         # Eccentric anomaly E
 
-        E0 = M + e * math.sin(M) * (1 + e * math.cos(M))
+        E0 = M
         while True:
-            E1 = E0 - (E0 - e * math.sin(E0) - M) / (1 - e * math.cos(E0))
-            if abs(E1-E0) < 0.0001:
+            E1 = M + e * math.sin(E0)
+            if abs(E1-E0) < 0.0000001:
                 break
             else:
                 E0 = E1
 
         # True anomaly v and radius r
 
-        xv = a * (math.cos(E0) - e )
-        yv = a * (math.sqrt(1.0 - e*e) * math.sin(E0))
-        v  = math.atan2(yv, xv)
-        r  = math.sqrt(xv*xv + yv*yv)
+        v = 2 * math.atan(math.sqrt((1+e)/(1-e)) * math.tan(E0/2))
+        r = a * (1-e*math.cos(E0))
 
         # Heliocentric coordinates (geocentric for moon)
 
@@ -525,17 +523,18 @@ def get_alt_az(p, y):
     RA_DEC = SkyCoord(RA, Dec, unit="rad")
     RA_DEC = RA_DEC.transform_to(aa)
     
+    az  = RA_DEC.az.deg
+    alt = RA_DEC.alt.deg
+    
     if (p == "Sonne"):
         rg = r
     
     print("RA  = " + repr(RA) + "°")
     print("Dec = " + repr(Dec) + "°")
     print("r   = " + repr(rg) + " (AU)")
-    print("Az1  = " + repr(az1) + "°")
-    print("Alt1 = " + repr(alt1) + "°")
-    print("Az2  = " + repr(az2) + "°")
-    print("Alt2 = " + repr(alt2) + "°")
-    return alt2, az2, RA, Dec, rg, r
+    print("Az  = " + repr(az) + "°")
+    print("Alt = " + repr(alt) + "°")
+    return alt, az, RA, Dec, rg, r
     
     
 
